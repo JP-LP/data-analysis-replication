@@ -1,0 +1,303 @@
+---
+title: "data-analysis-replication"
+format: html
+editor: visual
+---
+
+# Data analysis replication for Brandl et al. 2025 (Ecology) by Juan Pablo Lozano-Peña
+
+Assignment for Applied Data Analysis
+
+## Introduction
+
+Brandl et al. studied the role of small fishes (known as cryptobenthic reef fish) as a link of of energy and nutrients from primary energy sources to larger animals in coral reef food webs. They collected this small fishes from coral reefs surrounding the island of Mo'orea in the French Polynesia. These reefs were separated into two types of habitats: Backreef: those reefs protected from strong currents and wave action, located "behind" the reef-crest, and the Forereefs: those reefs located in the ocean-facing, outer side of the reef structure.
+
+The authors compared the benthic and the fish community composition on both types of reef habitats, the backreef and the forereef. Then they performed Bayesian Generalized Linear Models to test for the effect of benthic configuration (Percentage of algal cover and Percentage of coral cover) in the fish abundance and fish species richness, separately. Later on, they performed size spectrum analyses and demographic modeling, which are beyond the scope of this data replication assignment.
+
+###Summary
+Here I recreate:
+* 1 Descriptive statistical analysis (Includes visualization)
+* 2 Inferential Statistical analyses (Both of them include visualizations)
+ 
+Thus I have replicated three figures and three different statistical analyses (1 descriptive & 2 inferential)
+
+## Descriptive statistical analysis = PCoA 
+### (This point also includes visualization of the PCoA)
+
+Here I replicate the characterization of the benthic community on both types of reef habitat: the forereef and the backreef. I will perform and plot the results of a Principal Component analysis- an unconstrained type of ordination that maximizes differences among groups.
+
+I will read the dataframe called: "benthic.meta copy.csv" & "benthic.cover copy.csv". The former contains the metadata and the later contains the actual percentage of cover of each benthic category. This process starts with data wrangling steps.
+
+```{r}
+library(tidyverse)
+
+
+setwd("/Users/jl82726/Documents/PhD Classes/Applied Data Analysis/data-analysis-replication")
+
+benthic.metadata <- read.csv("benthic.meta copy.csv")
+head(benthic.metadata)
+```
+```{r}
+benthic.cover <- read.csv("benthic.cover copy.csv")
+head(benthic.cover)
+```
+
+After loading both data files. Extract percentage of cover for each site, by summarizing the values from the "cover" column. But first percentage of cover from original labels should be gruped into CORAL and TURF categories.
+
+
+```{r}
+
+benthic.full.data <- benthic.cover %>%
+  left_join(benthic.metadata, by = c("Name", "Site", "Yr")) %>%
+  mutate(custom_cat = case_when(General_categories == "CCA" ~ "CCA",
+                                General_categories == "Bare" ~ "Bare",
+                                TRUE ~ SJB_cat)) %>%
+  group_by(Sitenumber, Yr, custom_cat) %>%
+  summarize(mean.cover = sum(Cover)/500) %>%
+  mutate(ccover = case_when(custom_cat %in% c("Live_coral_branching",
+                                           "Live_coral_encrusting",
+                                           "Live_coral_massive") ~ "coral",
+                            TRUE ~ "other"),
+         turfcover = case_when(custom_cat %in% c("Dead_coral",
+                                                 "Filam_algae") ~ "turf",
+                               TRUE ~ "other")) 
+head(benthic.full.data)
+```
+After "tidying up" the labels - now we can estimate the mean coral and turf cover per site per year. and filter it to then create a neat final dataframe with an estimate for coral and turf on each site n=50.
+```{r}
+
+coral.cover <- benthic.full.data %>%
+  group_by(Sitenumber, Yr, ccover) %>%
+  summarize(coral_cover = sum(mean.cover)) %>% #estimate percentage of cover
+  filter(ccover == "coral") 
+
+turf.cover <- benthic.full.data %>%
+  group_by(Sitenumber, Yr, turfcover) %>%
+  summarize(turf_cover = sum(mean.cover)) %>% # extimate percentage of cover
+  filter(turfcover == "turf") 
+
+tc.cover <- coral.cover %>%
+  inner_join(turf.cover)
+head(tc.cover)
+```
+
+
+Now I need to join datasets "crypto_data_clean_all copy.csv" with the recently created "benthic.full.data" because "HABITAT" (either backreef or forereef) is present in that dataset and not in the benthic data.
+
+After loading the Fishdata. Species abundances need to be drawn from each particular site from which samples were collected. In total = 50 sites were sampled. Each row on this dataset represents the information for one fish individual. Therefore, to obtain abundances per species, rows need to be gathered by site and then the sum of the number of rows (n()), per site, per each fish species will be the abundance.
+```{r}
+Fishdata <- read.csv("crypto_data_clean_all copy.csv")
+
+benthic.final <- Fishdata %>%
+  group_by(Sitenumber, Habitat, Depth, Dimension, Lat, Long, Year, SA) %>%
+  summarize(abundance = n(), diversity = n_distinct(Genspe), biomass = sum(W)) %>%
+  left_join(tc.cover) %>%
+  ungroup()
+
+# get wide format
+benthic.wide <- benthic.final %>%
+  select(Sitenumber, Habitat) %>%
+  inner_join(benthic.full.data) %>%
+  select(Sitenumber, Habitat, custom_cat, mean.cover) %>%
+  spread(custom_cat, mean.cover, fill = 0)
+head(benthic.wide)
+```
+
+###Perfom PCoA
+Now i will run a PCoA - Reported in Figure S1 (in supplemental materials from this article)
+For this i need to load the vegan package
+```{r}
+
+library(vegan)
+library(dplyr)
+library(vegan)
+library(ggplot2)
+library(tibble)
+
+#  Split metadata and community matrix- so that only imporatnt metadata remains (site code and habitat type.)
+benthic.meta <- benthic.wide %>%
+  select(Sitenumber, Habitat)
+
+benthic.base <- benthic.wide %>%
+  select(-Sitenumber, -Habitat)
+
+#  Distance matrix using a Manhattan distance - as announced in the methods section 
+# Then perform PCoA with the wcmdscale() function from the vegan package
+benthic.base <- benthic.wide[-c(1:2)]
+benthic.dist <- vegdist(benthic.base, method="manhattan")
+benthic.pcoa.noscores <- wcmdscale(benthic.dist, k = 2, eig = TRUE)
+
+#add.spec.scores:
+library(BiodiversityR)
+
+benthic.pcoa <- BiodiversityR::add.spec.scores(benthic.pcoa.noscores, benthic.base, Rscale=TRUE, scaling=1, multi=1)
+benthic.pcoa$cproj
+
+#  Add species scores
+benthic.pcoa.scores <- as_tibble(benthic.pcoa$points) %>%
+  mutate(Sitenumber = benthic.wide$Sitenumber) %>% 
+  inner_join(benthic.wide[c(1:2)])
+
+# Site scores
+benthic.pcoa.scores <- as_tibble(benthic.pcoa$points, .name_repair = "minimal") %>%
+  setNames(c("Dim1", "Dim2")) %>%
+  bind_cols(benthic.meta)
+
+#  Convex hulls
+benthic.hulls <- benthic.pcoa.scores %>%
+  group_by(Habitat) %>%
+  dplyr::slice(chull(Dim1, Dim2)) 
+
+#  Species loadings extracted as a dataset - they will become the segments from the "eigenvalues"
+benthic.species <- as.data.frame(benthic.pcoa$cproj) %>%
+  mutate(species = rownames(.))
+
+#  Plot PCoA 
+benthic.plot <- ggplot() +
+  stat_ellipse(data = benthic.pcoa.scores,  #Plot ellipses
+    aes(Dim1, Dim2, color = Habitat),type = "norm",
+    linetype = 2) +
+  geom_polygon(data = benthic.hulls, #plot convex hulls
+    aes(Dim1, Dim2, fill = Habitat, group = Habitat),
+    alpha = 0.4, color = "grey23",
+    linewidth = 0.1) +
+  geom_point(data = benthic.pcoa.scores, #plot site coordinates
+    aes(Dim1, Dim2, fill = Habitat, shape = Habitat),
+    color = "black",size = 2) +
+  geom_segment(data = benthic.species, #plot eigenvectors
+    aes(x = 0, y = 0, xend = Dim1, yend = Dim2),
+    arrow = arrow(length = unit(0.2, "cm")),
+    color = "grey30",
+    linewidth = 0.1) +ggrepel::geom_text_repel(
+    data = benthic.species,
+    aes(Dim1, Dim2, label = species),
+    fontface = "bold") +
+  theme(
+   # legend.position = "none",
+    axis.text = element_text(color = "black", size = 12),
+    text = element_text(color = "black", size = 6)) +
+  scale_color_manual(values = c("orange", "blue")) + #color backreef and forereef differnetely
+  scale_fill_manual(values = c("orange", "blue")) +
+  scale_shape_manual(values = 8:9) +
+  labs(x = "Dimension 1", y = "Dimension 2")
+
+benthic.plot
+```
+
+Below is the original image from the paper, for comparisson
+
+```{r}
+#| echo: false
+#| out-width: 70%
+knitr::opts_chunk$set(fig.path = "images/FIGS1_Brandl et al.2025.png")
+
+```
+
+
+## Inferential Analysis
+
+Here I replicate the characterization response of fish abundance and fish species richness to benthic composition - algal cover and coral cover.
+The dataset containing such data is the data I named as :"benthic.final"
+
+```{r}
+head(benthic.final)
+```
+
+
+Now we can run the Bayesian Generalized Linear model testing for the effects of coral cover on each habitat.
+Here I have to use a negative binomial distribution.
+Abundance will be the dependent variable, while habitat and coral cover will be added as explanatory variables with an interaction, given the fact the each habitat has its own coral cover and we are interested in seeing the effect of both things together on fish abundance.
+
+Here i run the model with the default parameters from the brms function - and it seemed to work. there was convergence! = aka, a good fit for the model. Total iterations: 2000 per chain. Chains = 4. Burn-in period per chain = 1000, thin =1, for a total of 4000 final posteriors.
+```{r}
+library(brms)
+abundance_brm <- brm(abundance ~ Habitat * coral_cover, family = negbinomial, data = benthic.final)
+summary(abundance_brm) #extract results to see check for model convergence
+
+```
+ 
+
+And now we can run the Bayesian Generalized Linear model testing for the effects of coral cover cover on species richness on each habitat. Here I have to use a poisson distribution.
+
+```{r}
+richness_brm <- brm(diversity ~ Habitat * coral_cover, family = poisson, data = benthic.final)
+summary(richness_brm)
+```
+
+To plot this results. i firs need to simulate the data for coral cover. I do this using the data_grid on the benthic.final dataframe - this generates a synthethic set of values that goes from the lowest to the highest value of coral cover in that dataset for each habitat
+
+```{r}
+# plot predicted results
+Abundance.cc.simulate <- benthic.final %>%
+  group_by(Habitat) %>%
+  modelr::data_grid(coral_cover) 
+
+head(Abundance.cc.simulate)
+```
+
+ Extract predictions using add_epred_draws()For both models
+
+```{r}
+library(tidybayes)
+library(dplyr)
+library(tidyr)
+
+abundance.pred <- Abundance.cc.simulate %>%
+  add_epred_draws(abundance_brm,re_formula = NA, ndraws = 1000) %>%
+  rename(fitted = .epred) %>%
+  mutate(coral_cover = coral_cover * 100) %>%
+  unite(g_var, .draw, Habitat, sep = "_", remove = FALSE)
+
+Richness.pred <- Abundance.cc.simulate %>%
+  add_epred_draws(richness_brm,re_formula = NA, ndraws = 1000) %>%
+  rename(fitted = .epred) %>%
+  mutate(coral_cover = coral_cover * 100) %>%
+  unite(g_var, .draw, Habitat, sep = "_", remove = FALSE)
+
+head(abundance.pred)
+
+```
+
+Now Plot results FOR ABUNDANCE
+```{r}
+Abundance.Plot <- ggplot(abundance.pred, aes(x = coral_cover, y = fitted, group = g_var, color = Habitat)) +
+  geom_line(alpha = 0.2) +
+  scale_color_manual(values = c("orange", "blue"))
+
+Abundance.Plot
+```
+
+Now plot the results for species richness:
+```{r}
+richness.Plot <- ggplot(Richness.pred, aes(x = coral_cover, y = fitted, group = g_var, color = Habitat)) +
+  geom_line(alpha = 0.2) +
+  scale_color_manual(values = c("orange", "blue"))
+
+richness.Plot
+```
+
+Please find below the original figure 2 from the paper. I have replicated figures A & C
+```{r}
+#| echo: false
+#| out-width: 70%
+knitr::opts_chunk$set(fig.path = "images/FIG2.png")
+```
+
+## Summary/Discussion
+I was able to replicate a total of n=6 different results. Three figures from three different statistical analyses (1 descriptive & 2 inferential). The descriptive analysis is a Principal coordinate analysis and the two inferential analysis are bayesian generalized linear models with a negative binomial and a poisson distribution, for fish abundance and species richness respectively. I wanted to replicate the "simulation of isotopic data performed in the original paper. However, I think those anlaysis are beyond the scope of my assignment given their complexity.
+
+### Challenges
+
+The greatest challenge of this data replication analysis lies in first steps displayed in this quarto document: the data wrangling. It had to be very precise and specific. It took me time to understand what the structure of the data was. Some datasets contained information about what sites were located in the backreef vs the forereef, but others did not have this information. That is why the need for merging datasets is highlighted above.
+
+Despite trying, to understand the structure and the content of the datasets, the next challenging step was to determine the final benthic categories that the authors used for the benthic composition of their ecosystem. this information was not explicitly given neither in the methods section nor in the supplemental material texts. The only way to figure that out was by checking the final labeling scheme reported in figure one of the supllemental material in where they report the percentage of cover of all benthic categories around the island.
+
+Another greater challenge was the inclusion of the scores for the eigen vectors of the "predictor variables" in the PCoA. I had never run a PCoA before, and it took me some time to understand its structure. The scores or coordinates depict the positioning of each data point in the decomposed ordination space. From these coordinates one can draw the convex hulls adn the ellipses. The eigenvectors needed to be extracted using the Rdiversity package which required the installation of XQuartz software - otherwise, I could not have added the "species scoress" which come to be the coordinates at which the sengements (or arrows) ends, all of them starting at coordinates (0,0)-  these segments show the influence of each benthic category in the decomposition of the variablity in the ordination.
+
+### Potential differences between my replication and the original paper
+In the paper the models were run using four chains, 6000 iterations, and a warmup of 3000 iterations,
+using the default non-informative priors as part of the brms v 2.16.4 package (Bürkner, 2017). But here, Here i run the model with the default parameters from the brms function - and it seemed to work. there was convergence! = aka, a good fit for the model. Total iterations: 2000 per chain. Chains = 4. Burn-in period per chain = 1000, thin =1, for a total of 4000 final posteriors.
+
+Despite a lesser number of iterations included in the MonteCarlo Markov Chains, my replicated results match the results from the paper, based on the figures. - There was no noticeable effect of coral cover neither in fish abundance nor in species richness. Besides visual comparison of the posterior draws from the bayesian model, the authors do not provide summary statistics from their model, as such the median estimated and their credible intervals from my summary(abundance or richness models) cannot be compared with the original ones.
+
+
