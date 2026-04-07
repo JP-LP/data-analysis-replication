@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>data-analysis-replication</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="data-analysis-replication_files/libs/clipboard/clipboard.min.js"></script>
+<script src="data-analysis-replication_files/libs/quarto-html/quarto.js"></script>
+<script src="data-analysis-replication_files/libs/quarto-html/popper.min.js"></script>
+<script src="data-analysis-replication_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="data-analysis-replication_files/libs/quarto-html/anchor.min.js"></script>
+<link href="data-analysis-replication_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="data-analysis-replication_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="data-analysis-replication_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="data-analysis-replication_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="data-analysis-replication_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">data-analysis-replication</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="data-analysis-replication-for-brandl-et-al.-2025-ecology-by-juan-pablo-lozano-peña" class="level1">
+<h1>Data analysis replication for Brandl et al.&nbsp;2025 (Ecology) by Juan Pablo Lozano-Peña</h1>
+<p>Assignment for Applied Data Analysis</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Brandl et al.&nbsp;studied the role of small fishes (known as cryptobenthic reef fish) as a link of of energy and nutrients from primary energy sources to larger animals in coral reef food webs. They collected this small fishes from coral reefs surrounding the island of Mo’orea in the French Polynesia. These reefs were separated into two types of habitats: Backreef: those reefs protected from strong currents and wave action, located “behind” the reef-crest, and the Forereefs: those reefs located in the ocean-facing, outer side of the reef structure.</p>
+<p>The authors compared the benthic and the fish community composition on both types of reef habitats, the backreef and the forereef. Then they performed Bayesian Generalized Linear Models to test for the effect of benthic configuration (Percentage of algal cover and Percentage of coral cover) in the fish abundance and fish species richness, separately. Later on, they performed size spectrum analyses and demographic modeling, which are beyond the scope of this data replication assignment.</p>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<p>Here I recreate: * 1 Descriptive statistical analysis (Includes visualization) * 2 Inferential Statistical analyses (Both of them include visualizations)</p>
+<p>Thus I have replicated three figures and three different statistical analyses (1 descriptive &amp; 2 inferential)</p>
+</section>
+</section>
+<section id="descriptive-statistical-analysis-pcoa" class="level2">
+<h2 class="anchored" data-anchor-id="descriptive-statistical-analysis-pcoa">Descriptive statistical analysis = PCoA</h2>
+<section id="this-point-also-includes-visualization-of-the-pcoa" class="level3">
+<h3 class="anchored" data-anchor-id="this-point-also-includes-visualization-of-the-pcoa">(This point also includes visualization of the PCoA)</h3>
+<p>Here I replicate the characterization of the benthic community on both types of reef habitat: the forereef and the backreef. I will perform and plot the results of a Principal Component analysis- an unconstrained type of ordination that maximizes differences among groups.</p>
+<p>I will read the dataframe called: “benthic.meta copy.csv” &amp; “benthic.cover copy.csv”. The former contains the metadata and the later contains the actual percentage of cover of each benthic category. This process starts with data wrangling steps.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   4.0.2     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.2.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/jl82726/Documents/PhD Classes/Applied Data Analysis/data-analysis-replication"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>benthic.metadata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"benthic.meta copy.csv"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(benthic.metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   Name       Site Sitenumber   Yr
+1 Afareaitu1_2017_1.JPG Afareaitu1        B19 2017
+2 Afareaitu1_2017_2.JPG Afareaitu1        B19 2017
+3 Afareaitu1_2017_3.JPG Afareaitu1        B19 2017
+4 Afareaitu1_2017_4.JPG Afareaitu1        B19 2017
+5 Afareaitu1_2017_5.JPG Afareaitu1        B19 2017
+6 Afareaitu2_2017_1.JPG Afareaitu2        B20 2017</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>benthic.cover <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"benthic.cover copy.csv"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(benthic.cover)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   Name       Site   Yr Quadrat Total Substrate     Cover
+1 Afareaitu1_2017_1.JPG Afareaitu1 2017       1    25       CCA 20.000000
+2 Afareaitu1_2017_2.JPG Afareaitu1 2017       2    23       CCA  4.347826
+3 Afareaitu1_2017_3.JPG Afareaitu1 2017       3    24       CCA  8.333333
+4 Afareaitu1_2017_4.JPG Afareaitu1 2017       4    21       CCA 14.285714
+5 Afareaitu1_2017_5.JPG Afareaitu1 2017       5    23       CCA  0.000000
+6 Afareaitu2_2017_1.JPG Afareaitu2 2017       1    23       CCA  0.000000
+  Label_ID                Full_name         SJB_cat Structural_category
+1      101 Crustose coralline algae Clean_substrate                  2D
+2      101 Crustose coralline algae Clean_substrate                  2D
+3      101 Crustose coralline algae Clean_substrate                  2D
+4      101 Crustose coralline algae Clean_substrate                  2D
+5      101 Crustose coralline algae Clean_substrate                  2D
+6      101 Crustose coralline algae Clean_substrate                  2D
+  General_categories
+1                CCA
+2                CCA
+3                CCA
+4                CCA
+5                CCA
+6                CCA</code></pre>
+</div>
+</div>
+<p>After loading both data files. Extract percentage of cover for each site, by summarizing the values from the “cover” column. But first percentage of cover from original labels should be gruped into CORAL and TURF categories.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>benthic.full.data <span class="ot">&lt;-</span> benthic.cover <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(benthic.metadata, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Name"</span>, <span class="st">"Site"</span>, <span class="st">"Yr"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">custom_cat =</span> <span class="fu">case_when</span>(General_categories <span class="sc">==</span> <span class="st">"CCA"</span> <span class="sc">~</span> <span class="st">"CCA"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                General_categories <span class="sc">==</span> <span class="st">"Bare"</span> <span class="sc">~</span> <span class="st">"Bare"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> SJB_cat)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sitenumber, Yr, custom_cat) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean.cover =</span> <span class="fu">sum</span>(Cover)<span class="sc">/</span><span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ccover =</span> <span class="fu">case_when</span>(custom_cat <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Live_coral_branching"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Live_coral_encrusting"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Live_coral_massive"</span>) <span class="sc">~</span> <span class="st">"coral"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                            <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"other"</span>),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">turfcover =</span> <span class="fu">case_when</span>(custom_cat <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Dead_coral"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">"Filam_algae"</span>) <span class="sc">~</span> <span class="st">"turf"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                               <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"other"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Sitenumber', 'Yr'. You can override using
+the `.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(benthic.full.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+# Groups:   Sitenumber, Yr [1]
+  Sitenumber    Yr custom_cat            mean.cover ccover turfcover
+  &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;                      &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
+1 B1          2017 Bare                     0.00870 other  other    
+2 B1          2017 CCA                      0.0570  other  other    
+3 B1          2017 Dead_coral               0       other  turf     
+4 B1          2017 Filam_algae              0.692   other  turf     
+5 B1          2017 Live_coral_branching     0       coral  other    
+6 B1          2017 Live_coral_encrusting    0       coral  other    </code></pre>
+</div>
+</div>
+<p>After “tidying up” the labels - now we can estimate the mean coral and turf cover per site per year. and filter it to then create a neat final dataframe with an estimate for coral and turf on each site n=50.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coral.cover <span class="ot">&lt;-</span> benthic.full.data <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sitenumber, Yr, ccover) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">coral_cover =</span> <span class="fu">sum</span>(mean.cover)) <span class="sc">%&gt;%</span> <span class="co">#estimate percentage of cover</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ccover <span class="sc">==</span> <span class="st">"coral"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Sitenumber', 'Yr'. You can override using
+the `.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>turf.cover <span class="ot">&lt;-</span> benthic.full.data <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sitenumber, Yr, turfcover) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">turf_cover =</span> <span class="fu">sum</span>(mean.cover)) <span class="sc">%&gt;%</span> <span class="co"># extimate percentage of cover</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(turfcover <span class="sc">==</span> <span class="st">"turf"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Sitenumber', 'Yr'. You can override using
+the `.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tc.cover <span class="ot">&lt;-</span> coral.cover <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(turf.cover)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Sitenumber, Yr)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tc.cover)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+# Groups:   Sitenumber, Yr [6]
+  Sitenumber    Yr ccover coral_cover turfcover turf_cover
+  &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;
+1 B1          2017 coral       0.143  turf           0.692
+2 B10         2017 coral       0.151  turf           0.638
+3 B11         2017 coral       0.398  turf           0.390
+4 B12         2017 coral       0.773  turf           0.103
+5 B13         2017 coral       0.319  turf           0.475
+6 B14         2017 coral       0.0455 turf           0.422</code></pre>
+</div>
+</div>
+<p>Now I need to join datasets “crypto_data_clean_all copy.csv” with the recently created “benthic.full.data” because “HABITAT” (either backreef or forereef) is present in that dataset and not in the benthic data.</p>
+<p>After loading the Fishdata. Species abundances need to be drawn from each particular site from which samples were collected. In total = 50 sites were sampled. Each row on this dataset represents the information for one fish individual. Therefore, to obtain abundances per species, rows need to be gathered by site and then the sum of the number of rows (n()), per site, per each fish species will be the abundance.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Fishdata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"crypto_data_clean_all copy.csv"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>benthic.final <span class="ot">&lt;-</span> Fishdata <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sitenumber, Habitat, Depth, Dimension, Lat, Long, Year, SA) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">abundance =</span> <span class="fu">n</span>(), <span class="at">diversity =</span> <span class="fu">n_distinct</span>(Genspe), <span class="at">biomass =</span> <span class="fu">sum</span>(W)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(tc.cover) <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Sitenumber', 'Habitat', 'Depth',
+'Dimension', 'Lat', 'Long', 'Year'. You can override using the `.groups`
+argument.
+Joining with `by = join_by(Sitenumber)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get wide format</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>benthic.wide <span class="ot">&lt;-</span> benthic.final <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sitenumber, Habitat) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(benthic.full.data) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sitenumber, Habitat, custom_cat, mean.cover) <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(custom_cat, mean.cover, <span class="at">fill =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Sitenumber)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(benthic.wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 12
+  Sitenumber Habitat     Bare    CCA Dead_coral Filam_algae Live_coral_branching
+  &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;                &lt;dbl&gt;
+1 B1         Backreef 0.00870 0.0570          0       0.692                0    
+2 B10        Backreef 0       0.0589          0       0.638                0    
+3 B11        Backreef 0       0.0333          0       0.390                0    
+4 B12        Forereef 0       0.0743          0       0.103                0.335
+5 B13        Forereef 0       0.103           0       0.475                0.100
+6 B14        Backreef 0       0.141           0       0.422                0    
+# ℹ 5 more variables: Live_coral_encrusting &lt;dbl&gt;, Live_coral_massive &lt;dbl&gt;,
+#   Macroalgae &lt;dbl&gt;, Other_inverts &lt;dbl&gt;, Sand_rubble &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>###Perfom PCoA Now i will run a PCoA - Reported in Figure S1 (in supplemental materials from this article) For this i need to load the vegan package</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: permute</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  Split metadata and community matrix- so that only imporatnt metadata remains (site code and habitat type.)</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>benthic.meta <span class="ot">&lt;-</span> benthic.wide <span class="sc">%&gt;%</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sitenumber, Habitat)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>benthic.base <span class="ot">&lt;-</span> benthic.wide <span class="sc">%&gt;%</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Sitenumber, <span class="sc">-</span>Habitat)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co">#  Distance matrix using a Manhattan distance - as announced in the methods section </span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Then perform PCoA with the wcmdscale() function from the vegan package</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>benthic.base <span class="ot">&lt;-</span> benthic.wide[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)]</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>benthic.dist <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(benthic.base, <span class="at">method=</span><span class="st">"manhattan"</span>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>benthic.pcoa.noscores <span class="ot">&lt;-</span> <span class="fu">wcmdscale</span>(benthic.dist, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">eig =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co">#add.spec.scores:</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiodiversityR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: tcltk</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>BiodiversityR 2.17-4: Use command BiodiversityRGUI() to launch the Graphical User Interface; 
+to see changes use BiodiversityRGUI(changeLog=TRUE, backward.compatibility.messages=TRUE)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>benthic.pcoa <span class="ot">&lt;-</span> BiodiversityR<span class="sc">::</span><span class="fu">add.spec.scores</span>(benthic.pcoa.noscores, benthic.base, <span class="at">Rscale=</span><span class="cn">TRUE</span>, <span class="at">scaling=</span><span class="dv">1</span>, <span class="at">multi=</span><span class="dv">1</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>benthic.pcoa<span class="sc">$</span>cproj</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                             Dim1         Dim2
+Bare                   0.05872615 -0.040739764
+CCA                    0.47070485 -0.366822171
+Dead_coral             0.34522217 -0.194257248
+Filam_algae           -0.89303113 -0.324048686
+Live_coral_branching   0.81551328 -0.371603551
+Live_coral_encrusting -0.01644395 -0.325702752
+Live_coral_massive     0.05217119  0.965510654
+Macroalgae            -0.03280491  0.142784661
+Other_inverts         -0.32043226  0.087510542
+Sand_rubble           -0.29783074 -0.003294919</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Add species scores</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>benthic.pcoa.scores <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(benthic.pcoa<span class="sc">$</span>points) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sitenumber =</span> benthic.wide<span class="sc">$</span>Sitenumber) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(benthic.wide[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(Sitenumber)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Site scores</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>benthic.pcoa.scores <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(benthic.pcoa<span class="sc">$</span>points, <span class="at">.name_repair =</span> <span class="st">"minimal"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"Dim1"</span>, <span class="st">"Dim2"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(benthic.meta)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  Convex hulls</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>benthic.hulls <span class="ot">&lt;-</span> benthic.pcoa.scores <span class="sc">%&gt;%</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Habitat) <span class="sc">%&gt;%</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="fu">chull</span>(Dim1, Dim2)) </span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  Species loadings extracted as a dataset - they will become the segments from the "eigenvalues"</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>benthic.species <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(benthic.pcoa<span class="sc">$</span>cproj) <span class="sc">%&gt;%</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">rownames</span>(.))</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  Plot PCoA </span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>benthic.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_ellipse</span>(<span class="at">data =</span> benthic.pcoa.scores,  <span class="co">#Plot ellipses</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(Dim1, Dim2, <span class="at">color =</span> Habitat),<span class="at">type =</span> <span class="st">"norm"</span>,</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> benthic.hulls, <span class="co">#plot convex hulls</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(Dim1, Dim2, <span class="at">fill =</span> Habitat, <span class="at">group =</span> Habitat),</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">color =</span> <span class="st">"grey23"</span>,</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> benthic.pcoa.scores, <span class="co">#plot site coordinates</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(Dim1, Dim2, <span class="at">fill =</span> Habitat, <span class="at">shape =</span> Habitat),</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span>,<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> benthic.species, <span class="co">#plot eigenvectors</span></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> Dim1, <span class="at">yend =</span> Dim2),</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"cm"</span>)),</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"grey30"</span>,</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span>ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(</span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> benthic.species,</span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(Dim1, Dim2, <span class="at">label =</span> species),</span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>   <span class="co"># legend.position = "none",</span></span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">6</span>)) <span class="sc">+</span></span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"blue"</span>)) <span class="sc">+</span> <span class="co">#color backreef and forereef differnetely</span></span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"blue"</span>)) <span class="sc">+</span></span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="dv">8</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Dimension 1"</span>, <span class="at">y =</span> <span class="st">"Dimension 2"</span>)</span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a>benthic.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data-analysis-replication_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Below is the original image from the paper, for comparisson</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/FIGS1_Brandl%20et%20al.2025.png" class="img-fluid figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="inferential-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="inferential-analysis">Inferential Analysis</h2>
+<p>Here I replicate the characterization response of fish abundance and fish species richness to benthic composition - algal cover and coral cover. The dataset containing such data is the data I named as :“benthic.final”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(benthic.final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 16
+  Sitenumber Habitat Depth Dimension   Lat  Long  Year    SA abundance diversity
+  &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;     &lt;int&gt;     &lt;int&gt;
+1 B1         Backre…   7.1       290 -17.5 -150.  2017  5.35        54        13
+2 B10        Backre…   3.1       310 -17.6 -150.  2017  6.12       112        17
+3 B11        Backre…   2.1       310 -17.5 -150.  2017  6.12       120        21
+4 B12        Forere…  15.6       270 -17.5 -150.  2017  4.64        32        19
+5 B13        Forere…  14.4       290 -17.5 -150.  2017  5.35        43        21
+6 B14        Backre…   1.7       310 -17.5 -150.  2017  6.12        31         7
+# ℹ 6 more variables: biomass &lt;dbl&gt;, Yr &lt;int&gt;, ccover &lt;chr&gt;, coral_cover &lt;dbl&gt;,
+#   turfcover &lt;chr&gt;, turf_cover &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Now we can run the Bayesian Generalized Linear model testing for the effects of coral cover on each habitat. Here I have to use a negative binomial distribution. Abundance will be the dependent variable, while habitat and coral cover will be added as explanatory variables with an interaction, given the fact the each habitat has its own coral cover and we are interested in seeing the effect of both things together on fish abundance.</p>
+<p>Here i run the model with the default parameters from the brms function - and it seemed to work. there was convergence! = aka, a good fit for the model. Total iterations: 2000 per chain. Chains = 4. Burn-in period per chain = 1000, thin =1, for a total of 4000 final posteriors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Rcpp</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading 'brms' package (version 2.22.0). Useful instructions
+can be found by typing help('brms'). A more detailed introduction
+to the package is available through vignette('brms_overview').</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'brms'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    ar</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>abundance_brm <span class="ot">&lt;-</span> <span class="fu">brm</span>(abundance <span class="sc">~</span> Habitat <span class="sc">*</span> coral_cover, <span class="at">family =</span> negbinomial, <span class="at">data =</span> benthic.final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Compiling Stan program...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Trying to compile a simple C file</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+During startup - Warning messages:
+1: Setting LC_COLLATE failed, using "C" 
+2: Setting LC_TIME failed, using "C" 
+3: Setting LC_MESSAGES failed, using "C" 
+4: Setting LC_MONETARY failed, using "C" 
+using C compiler: ‘Apple clang version 17.0.0 (clang-1700.6.3.2)’
+using SDK: ‘MacOSX26.2.sdk’
+clang -arch arm64 -std=gnu2x -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG   -I"/Users/jl82726/Library/R/arm64/4.5/library/Rcpp/include/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/unsupported"  -I"/Users/jl82726/Library/R/arm64/4.5/library/BH/include" -I"/Users/jl82726/Library/R/arm64/4.5/library/StanHeaders/include/src/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/StanHeaders/include/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/RcppParallel/include/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/rstan/include" -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DUSE_STANC3 -DSTRICT_R_HEADERS  -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION  -D_HAS_AUTO_PTR_ETC=0  -include '/Users/jl82726/Library/R/arm64/4.5/library/StanHeaders/include/stan/math/prim/fun/Eigen.hpp'  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -c foo.c -o foo.o
+In file included from &lt;built-in&gt;:1:
+In file included from /Users/jl82726/Library/R/arm64/4.5/library/StanHeaders/include/stan/math/prim/fun/Eigen.hpp:22:
+In file included from /Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/Eigen/Core:19:
+/Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:679:10: fatal error: 'cmath' file not found
+  679 | #include &lt;cmath&gt;
+      |          ^~~~~~~
+1 error generated.
+make: *** [foo.o] Error 1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Start sampling</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 2.5e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.25 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 0.049 seconds (Warm-up)
+Chain 1:                0.042 seconds (Sampling)
+Chain 1:                0.091 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 3e-06 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 0.043 seconds (Warm-up)
+Chain 2:                0.043 seconds (Sampling)
+Chain 2:                0.086 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 3e-06 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 0.046 seconds (Warm-up)
+Chain 3:                0.044 seconds (Sampling)
+Chain 3:                0.09 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 2e-06 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.02 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 0.046 seconds (Warm-up)
+Chain 4:                0.046 seconds (Sampling)
+Chain 4:                0.092 seconds (Total)
+Chain 4: </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(abundance_brm) <span class="co">#extract results to see check for model convergence</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: negbinomial 
+  Links: mu = log; shape = identity 
+Formula: abundance ~ Habitat * coral_cover 
+   Data: benthic.final (Number of observations: 50) 
+  Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 4000
+
+Regression Coefficients:
+                            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                       4.36      0.15     4.08     4.66 1.00     2875
+HabitatForereef                -0.93      0.33    -1.60    -0.27 1.00     2199
+coral_cover                    -0.20      0.42    -1.03     0.65 1.00     2659
+HabitatForereef:coral_cover    -0.02      0.82    -1.62     1.64 1.00     2055
+                            Tail_ESS
+Intercept                       2708
+HabitatForereef                 2402
+coral_cover                     2508
+HabitatForereef:coral_cover     2076
+
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+shape     6.19      1.48     3.73     9.56 1.00     3008     2367
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+</div>
+<p>And now we can run the Bayesian Generalized Linear model testing for the effects of coral cover cover on species richness on each habitat. Here I have to use a poisson distribution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>richness_brm <span class="ot">&lt;-</span> <span class="fu">brm</span>(diversity <span class="sc">~</span> Habitat <span class="sc">*</span> coral_cover, <span class="at">family =</span> poisson, <span class="at">data =</span> benthic.final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Compiling Stan program...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Trying to compile a simple C file</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+During startup - Warning messages:
+1: Setting LC_COLLATE failed, using "C" 
+2: Setting LC_TIME failed, using "C" 
+3: Setting LC_MESSAGES failed, using "C" 
+4: Setting LC_MONETARY failed, using "C" 
+using C compiler: ‘Apple clang version 17.0.0 (clang-1700.6.3.2)’
+using SDK: ‘MacOSX26.2.sdk’
+clang -arch arm64 -std=gnu2x -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG   -I"/Users/jl82726/Library/R/arm64/4.5/library/Rcpp/include/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/unsupported"  -I"/Users/jl82726/Library/R/arm64/4.5/library/BH/include" -I"/Users/jl82726/Library/R/arm64/4.5/library/StanHeaders/include/src/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/StanHeaders/include/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/RcppParallel/include/"  -I"/Users/jl82726/Library/R/arm64/4.5/library/rstan/include" -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DUSE_STANC3 -DSTRICT_R_HEADERS  -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION  -D_HAS_AUTO_PTR_ETC=0  -include '/Users/jl82726/Library/R/arm64/4.5/library/StanHeaders/include/stan/math/prim/fun/Eigen.hpp'  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -c foo.c -o foo.o
+In file included from &lt;built-in&gt;:1:
+In file included from /Users/jl82726/Library/R/arm64/4.5/library/StanHeaders/include/stan/math/prim/fun/Eigen.hpp:22:
+In file included from /Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/Eigen/Dense:1:
+In file included from /Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/Eigen/Core:19:
+/Users/jl82726/Library/R/arm64/4.5/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:679:10: fatal error: 'cmath' file not found
+  679 | #include &lt;cmath&gt;
+      |          ^~~~~~~
+1 error generated.
+make: *** [foo.o] Error 1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Start sampling</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 1.2e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.12 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 0.029 seconds (Warm-up)
+Chain 1:                0.028 seconds (Sampling)
+Chain 1:                0.057 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 1e-06 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.01 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 0.029 seconds (Warm-up)
+Chain 2:                0.03 seconds (Sampling)
+Chain 2:                0.059 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 1e-06 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.01 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 0.028 seconds (Warm-up)
+Chain 3:                0.026 seconds (Sampling)
+Chain 3:                0.054 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 1e-06 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.01 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 0.029 seconds (Warm-up)
+Chain 4:                0.03 seconds (Sampling)
+Chain 4:                0.059 seconds (Total)
+Chain 4: </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(richness_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: poisson 
+  Links: mu = log 
+Formula: diversity ~ Habitat * coral_cover 
+   Data: benthic.final (Number of observations: 50) 
+  Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 4000
+
+Regression Coefficients:
+                            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                       2.78      0.08     2.62     2.93 1.00     2382
+HabitatForereef                -0.07      0.19    -0.46     0.30 1.00     1872
+coral_cover                     0.13      0.22    -0.31     0.54 1.00     2562
+HabitatForereef:coral_cover    -0.13      0.48    -1.06     0.82 1.00     1817
+                            Tail_ESS
+Intercept                       2457
+HabitatForereef                 2396
+coral_cover                     2420
+HabitatForereef:coral_cover     2224
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+</div>
+<p>To plot this results. i firs need to simulate the data for coral cover. I do this using the data_grid on the benthic.final dataframe - this generates a synthethic set of values that goes from the lowest to the highest value of coral cover in that dataset for each habitat</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot predicted results</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>Abundance.cc.simulate <span class="ot">&lt;-</span> benthic.final <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Habitat) <span class="sc">%&gt;%</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  modelr<span class="sc">::</span><span class="fu">data_grid</span>(coral_cover) </span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Abundance.cc.simulate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+# Groups:   Habitat [1]
+  Habitat  coral_cover
+  &lt;chr&gt;          &lt;dbl&gt;
+1 Backreef      0     
+2 Backreef      0.008 
+3 Backreef      0.0174
+4 Backreef      0.0455
+5 Backreef      0.0943
+6 Backreef      0.110 </code></pre>
+</div>
+</div>
+<p>Extract predictions using add_epred_draws()For both models</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'tidybayes'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:brms':
+
+    dstudent_t, pstudent_t, qstudent_t, rstudent_t</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>abundance.pred <span class="ot">&lt;-</span> Abundance.cc.simulate <span class="sc">%&gt;%</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_epred_draws</span>(abundance_brm,<span class="at">re_formula =</span> <span class="cn">NA</span>, <span class="at">ndraws =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">fitted =</span> .epred) <span class="sc">%&gt;%</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">coral_cover =</span> coral_cover <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(g_var, .draw, Habitat, <span class="at">sep =</span> <span class="st">"_"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>Richness.pred <span class="ot">&lt;-</span> Abundance.cc.simulate <span class="sc">%&gt;%</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_epred_draws</span>(richness_brm,<span class="at">re_formula =</span> <span class="cn">NA</span>, <span class="at">ndraws =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">fitted =</span> .epred) <span class="sc">%&gt;%</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">coral_cover =</span> coral_cover <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(g_var, .draw, Habitat, <span class="at">sep =</span> <span class="st">"_"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(abundance.pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+# Groups:   Habitat, coral_cover, .row [1]
+  g_var      Habitat  coral_cover  .row .chain .iteration .draw fitted
+  &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;      &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+1 1_Backreef Backreef           0     1     NA         NA     1   68.7
+2 2_Backreef Backreef           0     1     NA         NA     2   80.1
+3 3_Backreef Backreef           0     1     NA         NA     3   69.1
+4 4_Backreef Backreef           0     1     NA         NA     4   76.5
+5 5_Backreef Backreef           0     1     NA         NA     5   64.2
+6 6_Backreef Backreef           0     1     NA         NA     6   74.4</code></pre>
+</div>
+</div>
+<p>Now Plot results FOR ABUNDANCE</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>Abundance.Plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(abundance.pred, <span class="fu">aes</span>(<span class="at">x =</span> coral_cover, <span class="at">y =</span> fitted, <span class="at">group =</span> g_var, <span class="at">color =</span> Habitat)) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"blue"</span>))</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>Abundance.Plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data-analysis-replication_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now plot the results for species richness:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>richness.Plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Richness.pred, <span class="fu">aes</span>(<span class="at">x =</span> coral_cover, <span class="at">y =</span> fitted, <span class="at">group =</span> g_var, <span class="at">color =</span> Habitat)) <span class="sc">+</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"blue"</span>))</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>richness.Plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data-analysis-replication_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Please find below the original figure 2 from the paper. I have replicated figures A &amp; C</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/FIG2.png" class="img-fluid figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="summarydiscussion" class="level2">
+<h2 class="anchored" data-anchor-id="summarydiscussion">Summary/Discussion</h2>
+<p>I was able to replicate a total of n=6 different results. Three figures from three different statistical analyses (1 descriptive &amp; 2 inferential). The descriptive analysis is a Principal coordinate analysis and the two inferential analysis are bayesian generalized linear models with a negative binomial and a poisson distribution, for fish abundance and species richness respectively. I wanted to replicate the “simulation of isotopic data performed in the original paper. However, I think those anlaysis are beyond the scope of my assignment given their complexity.</p>
+<section id="challenges" class="level3">
+<h3 class="anchored" data-anchor-id="challenges">Challenges</h3>
+<p>The greatest challenge of this data replication analysis lies in first steps displayed in this quarto document: the data wrangling. It had to be very precise and specific. It took me time to understand what the structure of the data was. Some datasets contained information about what sites were located in the backreef vs the forereef, but others did not have this information. That is why the need for merging datasets is highlighted above.</p>
+<p>Despite trying, to understand the structure and the content of the datasets, the next challenging step was to determine the final benthic categories that the authors used for the benthic composition of their ecosystem. this information was not explicitly given neither in the methods section nor in the supplemental material texts. The only way to figure that out was by checking the final labeling scheme reported in figure one of the supllemental material in where they report the percentage of cover of all benthic categories around the island.</p>
+<p>Another greater challenge was the inclusion of the scores for the eigen vectors of the “predictor variables” in the PCoA. I had never run a PCoA before, and it took me some time to understand its structure. The scores or coordinates depict the positioning of each data point in the decomposed ordination space. From these coordinates one can draw the convex hulls adn the ellipses. The eigenvectors needed to be extracted using the Rdiversity package which required the installation of XQuartz software - otherwise, I could not have added the “species scoress” which come to be the coordinates at which the sengements (or arrows) ends, all of them starting at coordinates (0,0)- these segments show the influence of each benthic category in the decomposition of the variablity in the ordination.</p>
+</section>
+<section id="potential-differences-between-my-replication-and-the-original-paper" class="level3">
+<h3 class="anchored" data-anchor-id="potential-differences-between-my-replication-and-the-original-paper">Potential differences between my replication and the original paper</h3>
+<p>In the paper the models were run using four chains, 6000 iterations, and a warmup of 3000 iterations, using the default non-informative priors as part of the brms v 2.16.4 package (Bürkner, 2017). But here, Here i run the model with the default parameters from the brms function - and it seemed to work. there was convergence! = aka, a good fit for the model. Total iterations: 2000 per chain. Chains = 4. Burn-in period per chain = 1000, thin =1, for a total of 4000 final posteriors.</p>
+<p>Despite a lesser number of iterations included in the MonteCarlo Markov Chains, my replicated results match the results from the paper, based on the figures. - There was no noticeable effect of coral cover neither in fish abundance nor in species richness. Besides visual comparison of the posterior draws from the bayesian model, the authors do not provide summary statistics from their model, as such the median estimated and their credible intervals from my summary(abundance or richness models) cannot be compared with the original ones.</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
